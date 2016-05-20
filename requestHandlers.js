@@ -14,13 +14,13 @@ function start(res) {
     '</head>'+
     '<body>'+
     '<form action="/upload" enctype="multipart/form-data" method="post">'+
-    '<input type="file" name="upload>"' +
+    '<input type="file" name="upload">' +
     '<input type="submit" value="Upload file" />'+
     '</form>'+
     '</body>'+
     '</html>';
 
-  res.writeHead(200, {'Content-Type' : 'text/plain'});
+  res.writeHead(200, {'Content-Type' : 'text/html'});
   res.write(body);
   res.end();
 };
@@ -33,10 +33,10 @@ function upload(res, req) {
   form.parse(req, (err, fields, files) => {
     console.log('parsing done.');
 
-    fs.rename(files.upload.path, '/tmp/test.png', (err) => {
+    fs.rename(files.upload.path, './tmp/test.png', (err) => {
       if (err) {
         fs.unlink('/tmp/test.png');
-        fs.rename(files.upload.path, '/tmp/test.png');
+        fs.rename(files.upload.path, './tmp/test.png');
       }
     });
     res.writeHead(200, {'Content-Type' : 'text/html'});
